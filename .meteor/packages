@@ -19,3 +19,6 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 react
 react-meteor-data
+kadira:react-layout
+stevezhu:lodash
+kadira:flow-router
