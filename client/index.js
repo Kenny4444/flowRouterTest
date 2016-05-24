@@ -7,13 +7,9 @@ import { Portfolios } from '../imports/getPortfolio.js';
 import Portfolio from './portfolio.jsx';
 
 // App component - represents the whole app
-class Index extends Component {
+export class Index extends Component {
   constructor(props) {
     super(props);
-
-  }
-  componentDidMount() {
-    handleLogin({ component: this });
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -30,7 +26,7 @@ class Index extends Component {
   }
 
   renderPortfolios() {
-    let displayPortfolios = this.props.portfolios;
+    let displayPortfolios = this.props.route.component.propTypes.portfolios
     return displayPortfolios.map((portfolio) => (
       <Portfolio key={portfolio._id} portfolio={portfolio} />
     ));
@@ -40,7 +36,7 @@ class Index extends Component {
     return (
       <div className="my-portfolio">
         <header>
-          <h1>Portfolio List ({this.props.count})</h1>
+          <h1>Portfolio List ({this.props.route.component.propTypes.count})</h1>
 
           <form className="new-portfolio" onSubmit={this.handleSubmit.bind(this)} >
             <input
@@ -71,7 +67,7 @@ Index.propTypes = {
   count: PropTypes.number.isRequired,
 };
 
-export default IndexContainer = createContainer(() => {
+export default createContainer(() => {
   Meteor.subscribe('portfolios');
   return {
     portfolios: Portfolios.find({}, { sort: { createdAt: -1 } }).fetch(),
